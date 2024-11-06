@@ -5,7 +5,8 @@
 
 int code_valid(int code);
 int log_init();
-int admin_sign_up(struct admin_info * ptr);
+int admin_sign_up(struct admin_info ** ptr, int * len_of_admin);
+int admin_log_in(struct admin_info * ptr);
 void page_init();
 void get_str(char * str, int len);
 

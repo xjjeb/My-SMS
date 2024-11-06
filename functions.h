@@ -41,7 +41,6 @@ int admin_sign_up(struct admin_info ** admin_list, int* len_of_admin)
     char password[13];
     char conf_password[13];
     int flag = 1;
-    struct admin_info * admin_ptr = *admin_list;
     while (flag){
         printf("Please input your user name(less than 40 words):");
         get_str(name, 41);
@@ -51,13 +50,16 @@ int admin_sign_up(struct admin_info ** admin_list, int* len_of_admin)
         get_str(conf_password, 41);
         if (!strcmp(password, conf_password)){
             flag = 0;
+            printf("Please Confirm:\n");
+            printf("Your Username is %s\n", name);
+            printf("Your Password: %s", password);
         }
         else{
             printf("the password you input are not equal! Please sign up again.");
         }
     }
-    if (admin_ptr == NULL){
-        admin_ptr = (struct admin_info *)malloc(sizeof(struct admin_info));
+    if (*admin_list == NULL){
+        *admin_list = (struct admin_info *)malloc(sizeof(struct admin_info));
         *len_of_admin = 1;
     }
     else{
@@ -65,9 +67,14 @@ int admin_sign_up(struct admin_info ** admin_list, int* len_of_admin)
         *len_of_admin ++;
     }
     strcpy((*admin_list + *len_of_admin - 1)->name, name);
-    strcpy((*admin_list + *len_of_admin - 1)->password, password);//wtf is this
+    strcpy((*admin_list + *len_of_admin - 1)->password, password);//password is actually a pointer, it cannot be put into a data unit storing strings.
     printf("Sign Up Succeeded!");
     return 0;
+}
+
+int admin_log_in(struct admin_info * ptr)
+{
+    
 }
 
 void get_str(char * str, int len)
